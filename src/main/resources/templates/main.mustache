@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Main</title>
+</head>
+
+<body>
+<div>
+    <form method="post">
+        <input type="text" name="text" placeholder="Write message Text" />
+        <input type="text" name="tag" placeholder="Tag">
+        <button type="submit">Add</button>
+    </form>
+</div>
+<div>Messages</div>
+
+<form method="post" action="filter">
+    <input type="text" name="filter">
+    <button type="submit">Find</button>
+
+</form>
+
+{{#messages}}
+    <div>
+       <b>{{id}}</b>
+        <span>{{text}}</span>
+        <i>{{tag}}</i>
+    </div>
+    {{/messages}}
+</body>
+</html>
