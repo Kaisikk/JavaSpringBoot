@@ -23,17 +23,14 @@ public class FirstController {
     @Autowired
     private MessageRepository messageRepository;
 
-    @GetMapping("/greeting")
-    public String firstController(@RequestParam(name = "name", required = false, defaultValue = "Kaisik") String name, Map<String, Object> model){
-
-        // модель - куда складываем данные которые хотим вернуть
-    model.put("name", name);
+    @GetMapping("/")
+    public String firstController( Map<String, Object> model){
 
     // имя html файла (ожидается, что лежит в папке template)
     return "greeting";
     }
 
-    @GetMapping
+    @GetMapping("/main")
     public String main(Map<String, Object> model){
 
         List<Message> messages = messageRepository.findAll();
@@ -41,7 +38,7 @@ public class FirstController {
         return "main";
     }
 
-    @PostMapping
+    @PostMapping("/main")
     public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model){
         Message message = new Message(text, tag);
         messageRepository.save(message);
