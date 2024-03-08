@@ -18,7 +18,7 @@ import java.util.Map;
  * Контроллер для тестов
  */
 @Controller
-public class FirstController {
+public class MainController {
 
     @Autowired
     private MessageRepository messageRepository;

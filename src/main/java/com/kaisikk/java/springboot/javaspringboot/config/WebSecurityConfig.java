@@ -39,7 +39,7 @@ public class WebSecurityConfig  {
         http
                 // разрешаем заходить по этому адресу всем, остальные страницы - только если залогинился
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/", "/registration").permitAll()
                         .anyRequest().authenticated()
                 )
                 // указываем где лежит форма логина
