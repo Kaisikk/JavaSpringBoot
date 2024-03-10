@@ -23,20 +23,19 @@ import java.util.Map;
 public class MainController {
 
     @Autowired
-    private MessageRepository messageRepository;
+    private MessageRepository messageRepo;
 
     @GetMapping("/")
-    public String firstController( Map<String, Object> model){
-
-    // имя html файла (ожидается, что лежит в папке template)
-    return "greeting";
+    public String greeting(Map<String, Object> model) {
+        return "greeting";
     }
 
     @GetMapping("/main")
-    public String main(Map<String, Object> model){
+    public String main(Map<String, Object> model) {
+        Iterable<Message> messages = messageRepo.findAll();
 
-        List<Message> messages = messageRepository.findAll();
         model.put("messages", messages);
+
         return "main";
     }
 
@@ -44,28 +43,31 @@ public class MainController {
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
-            @RequestParam String tag, Map<String, Object> model){
-        Message message = new Message(text, tag);
-        messageRepository.save(message);
+            @RequestParam String tag, Map<String, Object> model
+    ) {
+        Message message = new Message(text, tag, user);
 
-        List<Message> messages = messageRepository.findAll();
+        messageRepo.save(message);
+
+        Iterable<Message> messages = messageRepo.findAll();
+
         model.put("messages", messages);
 
         return "main";
     }
 
     @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model){
+    public String filter(@RequestParam String filter, Map<String, Object> model) {
+        Iterable<Message> messages;
 
-        List<Message> messages = new ArrayList<>();
-
-        if(filter != null && !filter.isEmpty()){
-            messages = messageRepository.findByTag(filter);
+        if (filter != null && !filter.isEmpty()) {
+            messages = messageRepo.findByTag(filter);
         } else {
-            messages = messageRepository.findAll();
+            messages = messageRepo.findAll();
         }
 
         model.put("messages", messages);
+
         return "main";
     }
 
