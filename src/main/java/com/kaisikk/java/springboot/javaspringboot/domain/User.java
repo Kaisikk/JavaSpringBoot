@@ -1,6 +1,9 @@
 package com.kaisikk.java.springboot.javaspringboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,9 +17,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "username cannot be empty")
     private String username;
 
+    @NotBlank(message = "password cannot be empty")
     private String password;
+
+    @Transient
+    @NotBlank(message = "password confirmation cannot be empty")
+    private String password2;
 
     private boolean active;
 
@@ -25,6 +34,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "email cannot be empty")
     private String email;
 
     private String activationCode;
@@ -112,5 +123,13 @@ public class User implements UserDetails {
 
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
     }
 }
