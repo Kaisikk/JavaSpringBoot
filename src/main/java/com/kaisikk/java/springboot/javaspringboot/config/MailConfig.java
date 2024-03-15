@@ -8,6 +8,11 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+/**
+ * @author Kaisikk
+ *
+ * Конфигурация отправщика сообщений
+ */
 @Configuration
 public class MailConfig {
 
@@ -28,6 +33,12 @@ public class MailConfig {
 
     @Value("${mail.debug}")
     private String debug;
+
+    /**
+     * Настройка отправщика сообщений
+     *
+     * @return JavaMailSender
+     */
     @Bean
     public JavaMailSender getMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

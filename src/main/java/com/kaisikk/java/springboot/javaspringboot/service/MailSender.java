@@ -6,6 +6,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Kaisikk
+ *
+ * Сервис по отправке сообщений
+ */
 @Service
 public class MailSender {
 
@@ -16,12 +21,23 @@ public class MailSender {
     private String username;
 
 
+    /**
+     * Отправка сообщения
+     *
+     * @param emailTo
+     * @param subject
+     * @param message
+     */
     public void send(String emailTo, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
+        // от кого
         mailMessage.setFrom(username);
+        // на чью почту
         mailMessage.setTo(emailTo);
+        // тема
         mailMessage.setSubject(subject);
+        // тело сообщения
         mailMessage.setText(message);
 
         mailSender.send(mailMessage);

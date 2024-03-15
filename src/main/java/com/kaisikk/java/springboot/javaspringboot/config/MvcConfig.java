@@ -19,11 +19,21 @@ public class MvcConfig implements WebMvcConfigurer {
         return new RestTemplate();
     }
 
+    /**
+     * Устанавливаем страницу логина
+     *
+     * @param registry
+     */
     public void addViewControllers(ViewControllerRegistry registry){
 
         registry.addViewController("/login").setViewName("login");
     }
 
+    /**
+     * Устанавливаем доступ к ресурсам
+     *
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
        registry.addResourceHandler("/img/**")

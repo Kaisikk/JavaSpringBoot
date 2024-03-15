@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Set;
 
+/**
+ * @author Kaisikk
+ *
+ * Сервис для получения ответа от гугла, прошел ли пользователь капчу или нет
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CaptchaResponseDto {
     private boolean success;

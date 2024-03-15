@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * @author Kaisikk
+ *
+ * Сервис для работы с профилем пользователя
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -19,6 +24,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Получение списка пользователей
+     *
+     * @param model
+     * @return String
+     */
     @GetMapping
     public String userList(Model model) {
 
@@ -26,6 +37,13 @@ public class UserController {
         return "userList";
     }
 
+    /**
+     * Редактирование пользователя
+     *
+     * @param user
+     * @param model
+     * @return
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model) {
