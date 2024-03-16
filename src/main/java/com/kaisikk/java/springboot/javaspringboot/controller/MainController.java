@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,10 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -114,5 +112,20 @@ public class MainController {
 
         return "main";
     }
+
+    @GetMapping("/user-messages/{user}")
+    public String userMessages(
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable User user,
+            Model model){
+
+        Set<Message> messages = user.getMessages();
+
+        model.addAttribute("messages", messages);
+        model.addAttribute("isCurrentUser", currentUser.equals(user));
+
+        return "userMessages";
+    }
+
 
 }
