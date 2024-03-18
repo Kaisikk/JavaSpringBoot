@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Kaisikk
- *
+ * <p>
  * Сервис для работы с юзером
  */
 @Service
@@ -46,8 +46,8 @@ public class UserService implements UserDetailsService {
 
         User user = userRepo.findByUsername(username);
 
-        if(user == null){
-        throw new UsernameNotFoundException("User not found");
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
         }
 
         return user;
@@ -194,6 +194,20 @@ public class UserService implements UserDetailsService {
 
             mailSender.send(user.getEmail(), "ActivationCode", message);
         }
+
+    }
+
+    public void subscrive(User currentUser, User user) {
+
+        user.getSubscribers().add(currentUser);
+
+        userRepo.save(user);
+    }
+
+    public void unsubscribe(User currentUser, User user) {
+
+        user.getSubscribers().remove(currentUser);
+        userRepo.save(user);
 
     }
 }
