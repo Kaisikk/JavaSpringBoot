@@ -51,8 +51,8 @@ public class MainController {
             @RequestParam(required = false, defaultValue = "") String filter,
             Model model,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Message>  page;
-//
+
+        Page<Message> page;
 
         if (filter != null && !filter.isEmpty()) {
             page = messageRepo.findByTag(filter, pageable);
@@ -67,6 +67,7 @@ public class MainController {
         }
 
         model.addAttribute("page", page);
+        model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
 
         return "main";
